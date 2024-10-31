@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Demo</title>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" />
+		<style>
+			body {
+				font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+				margin: 0;
+				padding: 0;
+				overflow: hidden;
+			}
+
+			.card {
+				position: relative;
+				display: flex;
+				align-items: center;
+				width: 100%;
+				z-index: 10;
+			}
+
+			#bg-img {
+				width: 100%;
+				height: 100vh;
+			}
+
+			.item { 
+				position: absolute;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				background: none;
+				border: none;
+				width: 100%;
+				padding: 250px 100px 200px 100px;
+			}
+			h2 {
+				color: #f85888;
+				animation: blink 1s infinite;
+				font-weight: bold;
+			}
+
+			@keyframes blink {
+				0% {
+					opacity: 1;
+				}
+				50% {
+					opacity: 0;
+				}
+				100% {
+					opacity: 1;
+				}
+			}
+
+			/* responsive */
+			@media only screen and (max-width: 1028px) {
+
+			.item { 
+				padding: 250px 80px 150px 80px;
+			}
+
+			}
+			@media only screen and (max-width: 768px) {
+				.item { 
+				padding: 200px 60px 150px 60px;
+			}
+			}
+			
+		</style>
+	</head>
+	<body>
+		<div class="card">
+			<img src="You better.jpg" id="bg-img">
+				<div class="item">
+				<h2>Do you love me?</h2>
+				<div class="button">
+					<button onclick="yes()" class="btn btn-lg btn-danger">Yes</button>
+					<button onmouseover="no()" id="no" class="btn btn-lg btn-danger">No</button>
+					<button onmouseover="definitely()" id="def" class="btn btn-lg btn-danger">Definitely</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script>
+			function yes() {
+				let conf = confirm("Chắc chưa???");
+				if (conf) {
+					alert("Lovers now!");
+				}
+			}
+
+			function moveButton(button) {
+				const container = document.querySelector(".item"); // Vùng chứa của ảnh nền và nút
+				const containerRect = container.getBoundingClientRect(); // Lấy kích thước vùng chứa
+				const buttonWidth = button.offsetWidth; // Chiều rộng của nút
+				const buttonHeight = button.offsetHeight; // Chiều cao của nút
+
+				// Tính toán vị trí ngẫu nhiên nhưng giữ nút trong giới hạn container
+				let x = Math.random() * (containerRect.width - buttonWidth);
+				let y = Math.random() * (containerRect.height - buttonHeight);
+
+				// Đảm bảo nút không nhảy ra ngoài vùng chứa
+				x = Math.max(0, Math.min(x, containerRect.width - buttonWidth));
+				y = Math.max(0, Math.min(y, containerRect.height - buttonHeight));
+
+				// Cập nhật vị trí của nút
+				button.style.position = "absolute";
+				button.style.left = `${x}px`; // Vị trí ngang
+				button.style.top = `${y}px`; // Vị trí dọc
+			}
+
+			function definitely() {
+				let button = document.getElementById("def");
+				moveButton(button); // Di chuyển nút "Definitely"
+			}
+
+			function no() {
+				let button = document.getElementById("no");
+				moveButton(button); // Di chuyển nút "No"
+			}
+		</script>
+	</body>
+</html>
